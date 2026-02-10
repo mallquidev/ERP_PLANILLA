@@ -1,0 +1,30 @@
+#D:\payroll_project_3\backend\cc_combos.py
+from fastapi import APIRouter, Depends
+from database import get_connection
+from security import get_current_user
+
+router = APIRouter(prefix="/cc-combos", tags=["Combos CentroCosto"])
+
+@router.get("/empresas", dependencies=[Depends(get_current_user)])
+def combo_empresas():
+    conn = get_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT PKID, IDEmpresa, RazonSocial FROM Empresa ORDER BY RazonSocial")
+        cols = [c[0] for c in cur.description]
+        return [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        cur.close()
+        conn.close()
+
+@router.get("/situaciones", dependencies=[Depends(get_current_user)])
+def combo_situaciones():
+    conn = get_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT PKID, IDSituacionRegistro, SituacionRegistro FROM SituacionRegistro ORDER BY SituacionRegistro")
+        cols = [c[0] for c in cur.description]
+        return [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        cur.close()
+        conn.close()

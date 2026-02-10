@@ -1,0 +1,118 @@
+/* Layout base */
+:root{
+  --bg: #0f172a;
+  --bg-soft: #111827;
+  --panel: #1f2937;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #2563eb;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* TopBar arriba */
+.app-shell .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #0b1220;
+  border-bottom: 1px solid #0b172a;
+}
+
+/* Cuerpo: sidebar + contenido */
+.app-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  min-height: calc(100vh - 56px); /* altura menos topbar (ajusta si tu topbar es más alta) */
+}
+
+/* Sidebar fijo */
+.sidebar {
+  background: var(--bg-soft);
+  border-right: 1px solid #0b172a;
+  overflow-y: auto;
+}
+
+/* Contenido a la derecha */
+.content {
+  padding: 24px;
+  overflow: auto;
+  background: #ffffff;   /* fondo blanco */
+  color: #111827;        /* texto oscuro para contraste */
+}
+
+/* SidebarMenu estilos */
+.sidebar-menu {
+  padding: 16px 12px;
+}
+
+.sidebar-title {
+  color: #9ca3af;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 16px 8px 8px;
+}
+
+.group {
+  background: transparent;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.group-header {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: #111827;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.group-header .chev {
+  transition: transform .18s ease;
+}
+
+.group-header[aria-expanded="true"] .chev {
+  transform: rotate(90deg);
+}
+
+.group-content {
+  padding: 6px 8px 10px 8px;
+}
+
+.link {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.link:hover {
+  background: #0b1220;
+}
+
+.link.active {
+  background: #0b1a34;
+  color: #cfe0ff;
+  outline: 1px solid #1e3a8a;
+}
