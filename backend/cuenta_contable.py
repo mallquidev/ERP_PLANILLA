@@ -111,6 +111,7 @@ def crear(body: CuentaContableCreate):
     finally:
         cur.close()
         conn.close()
+        print("PKIDEmpresa recibido:", body.PKIDEmpresa)
 
 
 @router.put("/{PKID}", dependencies=[Depends(get_current_user)])

@@ -108,14 +108,24 @@ def create_empresa(payload: dict):
         ))
         conn.commit()
         return {"detail": "Creado"}
+
     except HTTPException:
         raise
+
     except pyodbc.IntegrityError as e:
         conn.rollback()
-        raise HTTPException(status_code=409, detail="Violación de integridad / llave duplicada.")
+        raise HTTPException(
+            status_code=409,
+            detail=f"Error de integridad en base de datos. SQL Server dice: {str(e)}"
+        )
+
     except pyodbc.Error as e:
         conn.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error general de base de datos. SQL Server dice: {str(e)}"
+        )
+
 
 @router.put("/{pkid}")
 def update_empresa(pkid: int, payload: dict):

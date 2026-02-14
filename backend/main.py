@@ -110,6 +110,9 @@ from grupo_gasto_combos import router as grupo_gasto_combos_router
 from grupo_operativo import router as grupo_operativo_router
 from grupo_operativo_combos import router as grupo_operativo_combos_router
 
+#pruebas
+from test_db import router as test_db_router
+
 
 app = FastAPI()
 
@@ -124,6 +127,8 @@ app.add_middleware(
     allow_headers=["*"],  # Authorization y Content-Type incluidos
 )
 
+#test
+app.include_router(test_db_router, prefix="/debug")
 
 app.include_router(auth_router)
 app.include_router(payroll_router)
