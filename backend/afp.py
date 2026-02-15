@@ -97,15 +97,28 @@ def crear_afp(body: AfpIn, user: dict = Depends(get_current_user)):
     try:
         conn = get_connection()
         cur = conn.cursor()
+
+        # -------------------------------
+        # Insertar AFP y devolver PKID
+        # -------------------------------
         cur.execute("""
             INSERT INTO Afp (IDAfp, Afp, IndicadorPublicoPrivado, PKIDCuentaContable, PKIDSituacionRegistro)
-            VALUES (?, ?, ?, ?, ?);
-            SELECT SCOPE_IDENTITY();
-        """, (body.IDAfp, body.Afp, body.IndicadorPublicoPrivado, body.PKIDCuentaContable, body.PKIDSituacionRegistro))
+            OUTPUT INSERTED.PKID
+            VALUES (?, ?, ?, ?, ?)
+        """, (
+            body.IDAfp,
+            body.Afp,
+            body.IndicadorPublicoPrivado,
+            body.PKIDCuentaContable,
+            body.PKIDSituacionRegistro
+        ))
+
         pkid = cur.fetchone()[0]
         conn.commit()
 
-        # Devolver el registro con joins
+        # -------------------------------
+        # Obtener la AFP creada con joins
+        # -------------------------------
         cur.execute("""
             SELECT
                 a.PKID,
@@ -121,12 +134,26 @@ def crear_afp(body: AfpIn, user: dict = Depends(get_current_user)):
             LEFT JOIN SituacionRegistro sr ON sr.PKID = a.PKIDSituacionRegistro
             WHERE a.PKID = ?
         """, (pkid,))
+
         row = cur.fetchone()
-        cur.close(); conn.close()
+        cur.close()
+        conn.close()
+
         if not row:
             raise HTTPException(status_code=400, detail="Error al leer la AFP creada.")
-        cols = ["PKID","IDAfp","Afp","IndicadorPublicoPrivado","PKIDCuentaContable","CuentaContable","PKIDSituacionRegistro","SituacionRegistro"]
+
+        cols = [
+            "PKID",
+            "IDAfp",
+            "Afp",
+            "IndicadorPublicoPrivado",
+            "PKIDCuentaContable",
+            "CuentaContable",
+            "PKIDSituacionRegistro",
+            "SituacionRegistro"
+        ]
         return dict(zip(cols, row))
+
     except Exception as e:
         http400(e, "No se pudo crear la AFP")
 

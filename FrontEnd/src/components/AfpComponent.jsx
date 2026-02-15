@@ -24,7 +24,7 @@ export default function AfpComponent() {
   const [formAfp, setFormAfp] = useState({
     IDAfp: "",
     Afp: "",
-    IndicadorPublicoPrivado: "PRIVADO",
+    IndicadorPublicoPrivado: "",
     PKIDCuentaContable: "",
     PKIDSituacionRegistro: "",
   });
@@ -162,7 +162,7 @@ export default function AfpComponent() {
       setFormAfp({
         IDAfp: "",
         Afp: "",
-        IndicadorPublicoPrivado: "PRIVADO",
+        IndicadorPublicoPrivado: "",
         PKIDCuentaContable: "",
         PKIDSituacionRegistro: "",
       });
@@ -381,7 +381,7 @@ export default function AfpComponent() {
                 setFormAfp({
                   IDAfp: "",
                   Afp: "",
-                  IndicadorPublicoPrivado: "PRIVADO",
+                  IndicadorPublicoPrivado: "",
                   PKIDCuentaContable: "",
                   PKIDSituacionRegistro: "",
                 });

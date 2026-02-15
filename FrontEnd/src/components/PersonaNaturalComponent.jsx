@@ -381,7 +381,7 @@ export default function PersonaNaturalComponent() {
               <tr key={r.PKID}>
                 <td>{r.PKID}</td>
                 <td>{r.IDPersonaNatural}</td>
-                <td>{r.TipoDocumentoIdentidad}</td>
+                <td>{r.DocumentoIdentidad}</td>
                 <td>{r.NumeroDocumentoIdentidad}</td>
                 <td>
                   {r.ApellidoPaterno} {r.ApellidoMaterno}, {r.PrimerNombre} {r.SegundoNombre || ""}

@@ -239,7 +239,7 @@ export default function CuentaContableComponent() {
         <form onSubmit={onSubmit}>
           <div style={row4}>
             <div>
-              <label style={label}>Empresa</label>
+              <label style={label}>Empresaxd</label>
               <input value={empresaLabel} disabled style={{ ...input, background: "#f9fafb" }} />
             </div>
             <div>
