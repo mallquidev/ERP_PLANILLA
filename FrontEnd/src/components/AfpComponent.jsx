@@ -305,9 +305,9 @@ export default function AfpComponent() {
 
       <section style={{ border: "1px solid #ddd", padding: 12, marginBottom: 20 }}>
         <h3>CABECERA AFP</h3>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }} className="">
           <div>
-            <label>ID AFP</label><br />
+            <label className="">ID AFP</label><br />
             <input
               name="IDAfp"
               type="number"

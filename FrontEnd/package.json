@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@material-tailwind/react": "^2.1.10",
     "axios": "^1.11.0",
     "chart.js": "^4.4.1",
     "react": "^18.2.0",
@@ -30,6 +32,9 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.6.2"
+    "autoprefixer": "^10.4.24",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19"
   }
 }

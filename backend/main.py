@@ -113,6 +113,8 @@ from grupo_operativo_combos import router as grupo_operativo_combos_router
 #pruebas
 from test_db import router as test_db_router
 
+from trabajador import router as trabajador_router
+
 
 app = FastAPI()
 
@@ -129,6 +131,8 @@ app.add_middleware(
 
 #test
 app.include_router(test_db_router, prefix="/debug")
+
+app.include_router(trabajador_router)
 
 app.include_router(auth_router)
 app.include_router(payroll_router)
