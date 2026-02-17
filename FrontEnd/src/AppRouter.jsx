@@ -47,6 +47,8 @@ import GradoAcademicoComponent from "./components/GradoAcademicoComponent";
 import GrupoGastoComponent from "./components/GrupoGastoComponent";
 import GrupoOperativoComponent from "./components/GrupoOperativoComponent";
 import TrabajadorPage from "./pages/TrabajadorPage";
+import EmpresaPage from "./pages/EmpresaPage";
+import PersonaNaturalPage from "./pages/PersonaNaturalPage";
 
 // Protección
 function ProtectedRoute({ children, requireContext = false }) {
@@ -98,10 +100,12 @@ export default function AppRouter() {
         <Route path="/menu" element={<MainMenu />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/consulta" element={<EmployeeForm />} />
-        <Route path="/empresa" element={<EmpresaComponent />} />
+        {/* <Route path="/empresa" element={<EmpresaComponent />} /> */} {/* CAMBIO */}
+        <Route path="/empresa" element={<EmpresaPage />} />
         <Route path="/afp" element={<AfpComponent />} />
-        <Route path="/persona-natural" element={<PersonaNaturalComponent />} />
-        <Route path="/trabajadores" element={<TrabajadorPage />} />
+        <Route path="/persona-natural" element={<PersonaNaturalPage />} />
+        <Route path="/trabajadores" element={<PersonaNaturalComponent />} />
+
         <Route path="/situacion-registro" element={<SituacionRegistroComponent />} />
         <Route path="/situacion-trabajador" element={<SituacionTrabajadorComponent />} />
         <Route path="/area" element={<AreaComponent />} />
