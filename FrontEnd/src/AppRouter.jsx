@@ -49,6 +49,7 @@ import GrupoOperativoComponent from "./components/GrupoOperativoComponent";
 import TrabajadorPage from "./pages/TrabajadorPage";
 import EmpresaPage from "./pages/EmpresaPage";
 import PersonaNaturalPage from "./pages/PersonaNaturalPage";
+import CentroCostoPage from "./pages/CentroCostoPage";
 
 // Protección
 function ProtectedRoute({ children, requireContext = false }) {
@@ -104,7 +105,8 @@ export default function AppRouter() {
         <Route path="/empresa" element={<EmpresaPage />} />
         <Route path="/afp" element={<AfpComponent />} />
         <Route path="/persona-natural" element={<PersonaNaturalPage />} />
-        <Route path="/trabajadores" element={<PersonaNaturalComponent />} />
+
+        <Route path="/trabajadores" element={<CentroCostoComponent />} />
 
         <Route path="/situacion-registro" element={<SituacionRegistroComponent />} />
         <Route path="/situacion-trabajador" element={<SituacionTrabajadorComponent />} />
@@ -113,7 +115,9 @@ export default function AppRouter() {
         <Route path="/cargo-empresa" element={<CargoEmpresaComponent />} />
         <Route path="/categoria-trabajador" element={<CategoriaTrabajadorComponent />} />
         <Route path="/categoria-reintegro" element={<CategoriaTrabajadorReintegroComponent />} />
-        <Route path="/centro-costo" element={<CentroCostoComponent />} />
+
+        <Route path="/centro-costo" element={<CentroCostoPage />} />
+
         <Route path="/concepto-planilla" element={<ConceptoPlanillaComponent />} />
         <Route path="/condicion-trabajador" element={<CondicionTrabajadorComponent />} />
         <Route path="/configura-planilla" element={<ConfiguraPlanillaComponent />} />

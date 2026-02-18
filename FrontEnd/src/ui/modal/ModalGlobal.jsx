@@ -33,10 +33,14 @@ function ModalGlobal({
         >
           <option value="">-- Seleccionar --</option>
           {col.options?.map((opt) => (
-            <option key={opt.PKID ?? opt.value} value={opt.PKID ?? opt.value}>
-              {opt.label ?? opt.nombre ?? opt.RazonSocial ?? opt.RegimenTributario ?? opt.SectorEconomico ?? opt.SituacionRegistro}
+            <option
+              key={opt[col.optionValue || "PKID"]}
+              value={opt[col.optionValue || "PKID"]}
+            >
+              {opt[col.displayKey] ?? ""}
             </option>
           ))}
+
         </select>
       )
     }

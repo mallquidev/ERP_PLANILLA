@@ -11,6 +11,7 @@ import ModalGlobal from '../modal/ModalGlobal'
 function TableGlobal({
   data = [],
   columns = [],
+  modalColumns = [],
   title = "Table",
   onCreate,
   onUpdate,
@@ -149,12 +150,15 @@ function TableGlobal({
                     }`}
                   >
                     {columns.map(col => (
-                      <td key={col.key} className="px-6 py-4 text-sm text-slate-700">
-                        {col.displayKey 
-                          ? (col.options.find(opt => opt.PKID === item[col.key])?.[col.displayKey] ?? '')
-                          : item[col.key]}
-                      </td>
-                    ))}
+  <td key={col.key} className="px-6 py-4 text-sm text-slate-700">
+    {col.render
+      ? col.render(item)
+      : col.displayKey
+        ? (col.options.find(opt => opt.PKID === item[col.key])?.[col.displayKey] ?? '')
+        : item[col.key]}
+  </td>
+))}
+
 
 
                     <td className="px-6 py-4 flex gap-2">
@@ -206,7 +210,7 @@ function TableGlobal({
         setFormData={setFormData}
         onClose={closeModal}
         onSave={handleSave}
-        columns={columns}
+        columns={modalColumns.length > 0 ? modalColumns : columns}
       />
 
       {/* modal para eliminar */}

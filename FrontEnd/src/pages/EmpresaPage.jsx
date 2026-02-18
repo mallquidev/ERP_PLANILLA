@@ -1,4 +1,3 @@
-// archivo: src/components/EmpresaComponent.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import API_BASE_URL from "../api";
