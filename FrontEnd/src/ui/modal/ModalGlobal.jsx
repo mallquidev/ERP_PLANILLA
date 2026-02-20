@@ -64,7 +64,7 @@ function ModalGlobal({
         {/* header */}
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-xl font-bold">
-            {modalType === 'add' ? 'Add Record' : 'Edit Record'}
+            {modalType === 'add' ? 'Agregar' : 'Editar'}
           </h2>
           <button onClick={onClose}>
             <XMarkIcon className="w-6 h-6" />
@@ -86,17 +86,16 @@ function ModalGlobal({
         {/* footer */}
         <div className="flex justify-end gap-3 p-4 border-t">
           <button
-            onClick={onClose}
-            className="px-4 py-2 border rounded-lg"
-          >
-            Cancel
-          </button>
-
-          <button
             onClick={onSave}
             className="bg-black text-white px-4 py-2 rounded-lg"
           >
-            Save
+            Guardar
+          </button>
+          <button
+            onClick={onClose}
+            className="px-4 py-2 border rounded-lg"
+          >
+            Cancelar
           </button>
         </div>
 

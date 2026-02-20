@@ -86,8 +86,8 @@ function TableGlobal({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-white rounded-xl ">
+      <div className="">
 
         {/* header */}
         <div className="mb-8">
@@ -117,7 +117,7 @@ function TableGlobal({
             className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
           >
             <PlusIcon className="w-5 h-5" />
-            Add
+            Agregar
           </button>
         </div>
 
@@ -218,25 +218,26 @@ function TableGlobal({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
             <h3 className="text-lg font-bold mb-4">
-              Confirm Deletion
+              Confirmar si quieres eliminar
             </h3>
 
             <p className="mb-6">
-              Are you sure you want to delete this record?
+              Estas seguro de Eliminar?
             </p>
 
             <div className="flex justify-end gap-3">
               <button
-                onClick={closeModal}
-                className="px-4 py-2 border rounded-lg"
-              >
-                Cancel
-              </button>
-              <button
                 onClick={handleConfirmDelete}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg"
               >
-                Delete
+                Eliminar
+              </button>
+
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 border rounded-lg"
+              >
+                Cancelar
               </button>
             </div>
           </div>

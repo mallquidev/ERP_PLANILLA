@@ -50,6 +50,26 @@ import TrabajadorPage from "./pages/TrabajadorPage";
 import EmpresaPage from "./pages/EmpresaPage";
 import PersonaNaturalPage from "./pages/PersonaNaturalPage";
 import CentroCostoPage from "./pages/CentroCostoPage";
+import ContratoLaboralPage from "./pages/ContratoLaboralPage";
+import CuentaContablePage from "./pages/CuentaContablePage";
+import EstablecimientoPage from "./pages/EstablecimientoPage";
+import AfpPage from "./pages/parametros/AfpPage";
+import BancoPage from "./pages/parametros/BancoPage";
+import ConceptoPlanillaPage from "./pages/parametros/ConceptoPlanillaPage";
+import ConfiguraPlanillaPage from "./pages/parametros/ConfiguraPlanillaPage";
+import ConfiguraRemuneracionVariablePage from "./pages/parametros/ConfiguraRemuneracionVariablePage";
+import ControlVacacionalPage from "./pages/vacaciones/ControlVacacionalPage";
+import AreaPage from "./pages/apoyo/AreaPage";
+import CargoEmpresaPage from "./pages/apoyo/CargoEmpresaPage";
+import CategoriaTrabajadorPage from "./pages/apoyo/CategoriaTrabajadorPage";
+import CategoriaTrabajadorReintegroPage from "./pages/apoyo/CategoriaTrabajadorReintegroPage";
+import CondicionTrabajadorPage from "./pages/apoyo/CondicionTrabajadorPage";
+import SituacionRegistroPage from "./pages/apoyo/SituacionRegistroPage";
+import SituacionTrabajadorPage from "./pages/apoyo/SituacionTrabajadorPage";
+import DiasUtilesMesPage from "./pages/apoyo/DiasUtilesMesPage";
+import DiasUtilesSemanapage from "./pages/apoyo/DiasUtilesSemanapage";
+import EntidadEpsPage from "./pages/apoyo/EntidadEpsPage";
+import EstadoCivilPage from "./pages/apoyo/EstadoCivilPage";
 
 // Protección
 function ProtectedRoute({ children, requireContext = false }) {
@@ -98,41 +118,45 @@ export default function AppRouter() {
           </ProtectedRoute>
         }
       >
+        <Route path="/pruebas" element={<EstadoCivilComponent />} />
+
         <Route path="/menu" element={<MainMenu />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/consulta" element={<EmployeeForm />} />
         {/* <Route path="/empresa" element={<EmpresaComponent />} /> */} {/* CAMBIO */}
         <Route path="/empresa" element={<EmpresaPage />} />
-        <Route path="/afp" element={<AfpComponent />} />
+        <Route path="/afp" element={<AfpPage />} />
         <Route path="/persona-natural" element={<PersonaNaturalPage />} />
 
-        <Route path="/trabajadores" element={<CentroCostoComponent />} />
-
-        <Route path="/situacion-registro" element={<SituacionRegistroComponent />} />
-        <Route path="/situacion-trabajador" element={<SituacionTrabajadorComponent />} />
-        <Route path="/area" element={<AreaComponent />} />
         <Route path="/banco" element={<BancoComponent />} />
-        <Route path="/cargo-empresa" element={<CargoEmpresaComponent />} />
-        <Route path="/categoria-trabajador" element={<CategoriaTrabajadorComponent />} />
-        <Route path="/categoria-reintegro" element={<CategoriaTrabajadorReintegroComponent />} />
+        {/* Tabla Apoyo */}
+        <Route path="/area" element={<AreaPage />} />
+        <Route path="/cargo-empresa" element={<CargoEmpresaPage />} />
+        <Route path="/categoria-trabajador" element={<CategoriaTrabajadorPage />} />
+        <Route path="/categoria-reintegro" element={<CategoriaTrabajadorReintegroPage />} />
+        <Route path="/condicion-trabajador" element={<CondicionTrabajadorPage />} />
+        <Route path="/situacion-registro" element={<SituacionRegistroPage />} />
+        <Route path="/situacion-trabajador" element={<SituacionTrabajadorPage />} />
+        <Route path="/dias-utiles-mes" element={<DiasUtilesMesPage />} />
+        <Route path="/dias-utiles-semana" element={<DiasUtilesSemanapage />} />
+        <Route path="/entidad-eps" element={<EntidadEpsPage />} />
+        <Route path="/estado-civil" element={<EstadoCivilPage />} />
+
 
         <Route path="/centro-costo" element={<CentroCostoPage />} />
 
-        <Route path="/concepto-planilla" element={<ConceptoPlanillaComponent />} />
-        <Route path="/condicion-trabajador" element={<CondicionTrabajadorComponent />} />
+        <Route path="/concepto-planilla" element={<ConceptoPlanillaPage />} />
+
         <Route path="/configura-planilla" element={<ConfiguraPlanillaComponent />} />
-        <Route path="/configura-remuneracion-variable" element={<ConfiguraRemuneracionVariableComponent />} />
-        <Route path="/contrato-laboral" element={<ContratoLaboralComponent />} />
-        <Route path="/control-vacacional" element={<ControlVacacionalComponent />} />
+
+        <Route path="/configura-remuneracion-variable" element={<ConfiguraRemuneracionVariablePage />} /> {/* falta un buscador mejorado */}
+        <Route path="/contrato-laboral" element={<ContratoLaboralPage />} />
+        <Route path="/control-vacacional" element={<ControlVacacionalPage />} />
         <Route path="/cts-calculada" element={<CTSCalculadaComponent />} />
         <Route path="/cuenta-corriente-planillas" element={<CuentaCorrientePlanillasComponent />} />
-        <Route path="/cuenta-contable" element={<CuentaContableComponent />} />
-        <Route path="dias-utiles-mes" element={<DiasUtilesMesComponent />} />
-        <Route path="/dias-utiles-semana" element={<DiasUtilesSemanaComponent />} />
+        <Route path="/cuenta-contable" element={<CuentaContablePage />} />
         <Route path="/deduccion-periodo" element={<DeduccionPeriodoComponent />} />
-        <Route path="/entidad-eps" element={<EntidadEpsComponent />} />
-        <Route path="/establecimientos" element={<EstablecimientoComponent />} />
-        <Route path="/estado-civil" element={<EstadoCivilComponent />} />
+        <Route path="/establecimientos" element={<EstablecimientoPage />} />
         <Route path="/familias" element={<FamiliaComponent />} />
         <Route path="/familia-remuneracion-variable" element={<FamiliaRemuneracionVariableComponent />} />
         <Route path="/fecha-vigencia-impuesto" element={<FechaVigenciaImpuestoComponent />} />
