@@ -4,7 +4,8 @@ import {
   PencilSquareIcon,
   MagnifyingGlassIcon,
   PlusIcon,
-  XMarkIcon
+  ChevronLeftIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline'
 import ModalGlobal from '../modal/ModalGlobal'
 
@@ -19,6 +20,7 @@ function TableGlobal({
 }) {
 
   const ITEMS_PER_PAGE = 5
+  const MAX_VISIBLE_PAGES = 5
 
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,7 +28,6 @@ function TableGlobal({
   const [selectedItem, setSelectedItem] = useState(null)
   const [formData, setFormData] = useState({})
 
-  // 🔎 FILTRO DINÁMICO
   const filteredData = useMemo(() => {
     if (!Array.isArray(data)) return []
 
@@ -42,6 +43,21 @@ function TableGlobal({
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
   const paginatedData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+
+  const showingFrom = filteredData.length === 0 ? 0 : startIndex + 1
+  const showingTo = Math.min(startIndex + ITEMS_PER_PAGE, filteredData.length)
+
+  const getVisiblePages = () => {
+    let start = Math.max(1, currentPage - 2)
+    let end = start + MAX_VISIBLE_PAGES - 1
+
+    if (end > totalPages) {
+      end = totalPages
+      start = Math.max(1, end - MAX_VISIBLE_PAGES + 1)
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+  }
 
   const handleAdd = () => {
     setFormData({})
@@ -61,22 +77,13 @@ function TableGlobal({
   }
 
   const handleSave = async () => {
-    if (modalType === 'add' && onCreate) {
-      await onCreate(formData)
-    }
-
-    if (modalType === 'edit' && onUpdate) {
-      await onUpdate(formData)
-    }
-
+    if (modalType === 'add' && onCreate) await onCreate(formData)
+    if (modalType === 'edit' && onUpdate) await onUpdate(formData)
     closeModal()
   }
 
   const handleConfirmDelete = async () => {
-    if (onDelete && selectedItem) {
-      await onDelete(selectedItem)
-    }
-
+    if (onDelete && selectedItem) await onDelete(selectedItem)
     closeModal()
   }
 
@@ -86,111 +93,122 @@ function TableGlobal({
   }
 
   return (
-    <div className="bg-white rounded-xl ">
-      <div className="">
+    <div className="bg-white rounded-xl w-full">
 
-        {/* header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">
-            {title}
-          </h1>
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-4xl font-bold text-slate-900">
+          {title}
+        </h1>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="flex-1 relative">
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value)
+              setCurrentPage(1)
+            }}
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
-        {/* buscador */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value)
-                setCurrentPage(1)
-              }}
-              className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <button
+          onClick={handleAdd}
+          className="flex items-center justify-center gap-2 bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-800 transition"
+        >
+          <PlusIcon className="w-5 h-5" />
+          Agregar
+        </button>
+      </div>
 
-          <button
-            onClick={handleAdd}
-            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-          >
-            <PlusIcon className="w-5 h-5" />
-            Agregar
-          </button>
-        </div>
-
-        {/* tablas */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-slate-100 border-b">
-                  {columns.map(col => (
-                    <th
-                      key={col.key}
-                      className="px-6 py-4 text-left text-sm font-semibold text-slate-900"
-                    >
-                      {col.label}
-                    </th>
-                  ))}
-                  <th className="px-6 py-4 text-sm font-semibold">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {paginatedData.map((item, index) => (
-                  <tr
-                    key={item.PKID || item.id}
-                    className={`border-b hover:bg-slate-50 ${
-                      index % 2 === 0 ? 'bg-white' : 'bg-slate-50'
-                    }`}
+      <div className="bg-white rounded-xl shadow-lg">
+        <div className="w-full overflow-x-auto">
+          <table className="min-w-max w-full text-sm">
+            <thead className="bg-slate-100 border-b">
+              <tr>
+                {columns.map(col => (
+                  <th
+                    key={col.key}
+                    className="px-6 py-4 text-left font-semibold text-slate-900 whitespace-nowrap"
                   >
-                    {columns.map(col => (
-  <td key={col.key} className="px-6 py-4 text-sm text-slate-700">
-    {col.render
-      ? col.render(item)
-      : col.displayKey
-        ? (col.options.find(opt => opt.PKID === item[col.key])?.[col.displayKey] ?? '')
-        : item[col.key]}
-  </td>
-))}
-
-
-
-                    <td className="px-6 py-4 flex gap-2">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="bg-blue-100 text-blue-600 p-2 rounded-lg hover:bg-blue-200"
-                      >
-                        <PencilSquareIcon className="w-5 h-5" />
-                      </button>
-
-                      <button
-                        onClick={() => handleDelete(item)}
-                        className="bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200"
-                      >
-                        <TrashIcon className="w-5 h-5" />
-                      </button>
-                    </td>
-                  </tr>
+                    {col.label}
+                  </th>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                <th className="px-6 py-4 font-semibold whitespace-nowrap">
+                  Actions
+                </th>
+              </tr>
+            </thead>
 
-        {/* paginacion */}
-        {totalPages > 1 && (
-          <div className="flex justify-center gap-2 mt-6">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+            <tbody>
+              {paginatedData.map((item, index) => (
+                <tr
+                  key={item.PKID || item.id}
+                  className={`border-b hover:bg-slate-50 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-slate-50'
+                  }`}
+                >
+                  {columns.map(col => (
+                    <td
+                      key={col.key}
+                      className="px-6 py-4 whitespace-nowrap text-slate-700"
+                    >
+                      {col.render
+                        ? col.render(item)
+                        : col.displayKey
+                          ? (col.options.find(opt => opt.PKID === item[col.key])?.[col.displayKey] ?? '')
+                          : item[col.key]}
+                    </td>
+                  ))}
+
+                  <td className="px-6 py-4 flex gap-2 whitespace-nowrap">
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="bg-blue-100 text-blue-600 p-2 rounded-lg hover:bg-blue-200"
+                    >
+                      <PencilSquareIcon className="w-5 h-5" />
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(item)}
+                      className="bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200"
+                    >
+                      <TrashIcon className="w-5 h-5" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {totalPages > 1 && (
+        <div className="mt-6 space-y-4">
+
+          <div className="text-sm text-slate-600">
+            Mostrando {showingFrom}-{showingTo} de {filteredData.length}
+          </div>
+
+          <div className="flex justify-center items-center gap-2 flex-wrap">
+
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(prev => prev - 1)}
+              className="p-2 rounded-lg border disabled:opacity-40"
+            >
+              <ChevronLeftIcon className="w-5 h-5" />
+            </button>
+
+            {getVisiblePages().map(page => (
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`w-10 h-10 rounded-lg font-semibold ${
+                className={`w-10 h-10 rounded-lg font-semibold transition ${
                   currentPage === page
                     ? 'bg-blue-600 text-white'
                     : 'bg-white border hover:border-blue-500'
@@ -199,11 +217,19 @@ function TableGlobal({
                 {page}
               </button>
             ))}
-          </div>
-        )}
-      </div>
 
-      {/* modal form */}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(prev => prev + 1)}
+              className="p-2 rounded-lg border disabled:opacity-40"
+            >
+              <ChevronRightIcon className="w-5 h-5" />
+            </button>
+
+          </div>
+        </div>
+      )}
+
       <ModalGlobal
         modalType={modalType}
         formData={formData}
@@ -213,9 +239,8 @@ function TableGlobal({
         columns={modalColumns.length > 0 ? modalColumns : columns}
       />
 
-      {/* modal para eliminar */}
       {modalType === 'delete' && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
             <h3 className="text-lg font-bold mb-4">
               Confirmar si quieres eliminar
@@ -243,6 +268,7 @@ function TableGlobal({
           </div>
         </div>
       )}
+
     </div>
   )
 }

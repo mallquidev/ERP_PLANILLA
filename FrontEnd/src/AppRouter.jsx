@@ -118,7 +118,7 @@ export default function AppRouter() {
           </ProtectedRoute>
         }
       >
-        <Route path="/pruebas" element={<EstadoCivilComponent />} />
+        {/* <Route path="/pruebas" element={<TrabajadorPage />} /> */}
 
         <Route path="/menu" element={<MainMenu />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -142,7 +142,7 @@ export default function AppRouter() {
         <Route path="/entidad-eps" element={<EntidadEpsPage />} />
         <Route path="/estado-civil" element={<EstadoCivilPage />} />
 
-
+        {/* Maestros */}
         <Route path="/centro-costo" element={<CentroCostoPage />} />
 
         <Route path="/concepto-planilla" element={<ConceptoPlanillaPage />} />
