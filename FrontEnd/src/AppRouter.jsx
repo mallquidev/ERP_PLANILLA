@@ -151,7 +151,7 @@ export default function AppRouter() {
 
         <Route path="/configura-remuneracion-variable" element={<ConfiguraRemuneracionVariablePage />} /> {/* falta un buscador mejorado */}
         <Route path="/contrato-laboral" element={<ContratoLaboralPage />} />
-        <Route path="/control-vacacional" element={<ControlVacacionalPage />} />
+        <Route path="/control-vacacional" element={<ControlVacacionalComponent />} />
         <Route path="/cts-calculada" element={<CTSCalculadaComponent />} />
         <Route path="/cuenta-corriente-planillas" element={<CuentaCorrientePlanillasComponent />} />
         <Route path="/cuenta-contable" element={<CuentaContablePage />} />
