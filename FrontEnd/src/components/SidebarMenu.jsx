@@ -36,7 +36,7 @@ export default function SidebarMenu() {
       <Group title="Maestros">
         <LinkItem to="/empresa">Empresas</LinkItem>
         <LinkItem to="/persona-natural">Persona Natural</LinkItem>
-        <LinkItem to="/pruebas">Pruebas</LinkItem>
+        {/* <LinkItem to="/pruebas">Pruebas</LinkItem> */}
         <LinkItem to="/centro-costo">Centro de Costo</LinkItem>
         <LinkItem to="/contrato-laboral">Contrato Laboral</LinkItem>
         <LinkItem to="/cuenta-contable">Cuenta Contable</LinkItem>
